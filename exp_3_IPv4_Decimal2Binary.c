@@ -6,7 +6,7 @@
 void IPv4ToBinary(char *ip)
 {
     // array to store binary number
-    int binaryNum[32];
+    int binaryNum[32] = {0};
     // counter for binary array
     int i = 0;
     // split the string into tokens
@@ -16,25 +16,21 @@ void IPv4ToBinary(char *ip)
         // convert token to integer
         int n = atoi(token);
         // convert decimal to binary
-        while (n > 0)
+        for (int j = 7; j >= 0; j--)
         {
-            // storing remainder in binary array
-            binaryNum[i] = n % 2;
-            n = n / 2;
+            binaryNum[i] = n >> j & 1;
             i++;
         }
-        // add leading zeros
-        while (i < 8)
-        {
-            binaryNum[i] = 0;
-            i++;
-        }
-        // get next token
         token = strtok(NULL, ".");
     }
-    // printing binary array in reverse order
-    for (int j = i - 1; j >= 0; j--)
+    // print the binary number
+    for (int j = 0; j < 32; j++)
+    {
         printf("%d", binaryNum[j]);
+        if ((j + 1) % 8 == 0)
+            printf(" ");
+    }
+    printf("\n");
 }
 
 int main()
